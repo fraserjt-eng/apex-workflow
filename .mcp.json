@@ -2,7 +2,7 @@
   "mcpServers": {
     "google-drive": {
       "command": "npx",
-      "args": ["-y", "@anthropic/mcp-server-google-drive"],
+      "args": ["-y", "@modelcontextprotocol/server-gdrive@latest"],
       "env": {
         "GOOGLE_APPLICATION_CREDENTIALS": "${GOOGLE_APPLICATION_CREDENTIALS}"
       },
@@ -10,7 +10,7 @@
     },
     "google-sheets": {
       "command": "npx",
-      "args": ["-y", "@anthropic/mcp-server-google-sheets"],
+      "args": ["-y", "@anthropic/mcp-gsuite@latest"],
       "env": {
         "GOOGLE_APPLICATION_CREDENTIALS": "${GOOGLE_APPLICATION_CREDENTIALS}"
       },
@@ -18,11 +18,11 @@
     },
     "filesystem": {
       "command": "npx",
-      "args": ["-y", "@anthropic/mcp-server-filesystem"],
+      "args": ["-y", "@modelcontextprotocol/server-filesystem@0.6.3"],
       "env": {
         "ALLOWED_PATHS": "${HOME}/Documents/BCCS,${HOME}/Documents/APEX,${HOME}/Documents/Grants"
       },
-      "description": "Access local files in allowed directories"
+      "description": "Access local files in allowed directories (pinned to 0.6.3 for CVE-2025-53109/53110 fix)"
     }
   }
 }
