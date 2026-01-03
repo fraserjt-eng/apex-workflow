@@ -1,6 +1,9 @@
 # Claude API
 anthropic>=0.40.0
 
+# Text-to-speech (ChristopherNeural voice)
+edge-tts>=6.1.0
+
 # Local development (not needed for Vercel)
 fastapi>=0.109.0
 uvicorn>=0.27.0

@@ -180,7 +180,7 @@
         let isRecording = false;
         let recognition = null;
         let history = [];
-        const synthesis = window.speechSynthesis;
+        let currentAudio = null;
 
         // Check for speech recognition support
         if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
@@ -226,7 +226,7 @@
 
         function startRecording() {
             if (!recognition || isRecording) return;
-            synthesis.cancel();
+            if (currentAudio) { currentAudio.pause(); currentAudio = null; }
             isRecording = true;
             micBtn.classList.add('recording');
             micLabel.textContent = 'Listening...';
@@ -290,14 +290,50 @@
             setTimeout(() => div.remove(), 5000);
         }
 
-        function speak(text) {
-            synthesis.cancel();
-            const utterance = new SpeechSynthesisUtterance(text);
-            utterance.rate = 1.0;
-            const voices = synthesis.getVoices();
-            const preferredVoice = voices.find(v => v.name.includes('Samantha') || v.lang.startsWith('en'));
-            if (preferredVoice) utterance.voice = preferredVoice;
-            synthesis.speak(utterance);
+        async function speak(text) {
+            // Stop any current audio
+            if (currentAudio) { currentAudio.pause(); currentAudio = null; }
+
+            status.textContent = 'Speaking...';
+            status.className = 'status processing';
+
+            try {
+                // Call TTS API to get ChristopherNeural voice
+                const response = await fetch('/api/tts', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ text })
+                });
+
+                const data = await response.json();
+
+                if (data.error) {
+                    console.error('TTS error:', data.error);
+                    resetUI();
+                    return;
+                }
+
+                // Decode base64 audio and play
+                const audioBytes = Uint8Array.from(atob(data.audio), c => c.charCodeAt(0));
+                const audioBlob = new Blob([audioBytes], { type: 'audio/mp3' });
+                const audioUrl = URL.createObjectURL(audioBlob);
+
+                currentAudio = new Audio(audioUrl);
+                currentAudio.onended = () => {
+                    URL.revokeObjectURL(audioUrl);
+                    currentAudio = null;
+                    resetUI();
+                };
+                currentAudio.onerror = () => {
+                    console.error('Audio playback error');
+                    resetUI();
+                };
+                currentAudio.play();
+
+            } catch (e) {
+                console.error('TTS fetch error:', e);
+                resetUI();
+            }
         }
 
         function resetUI() {
@@ -305,12 +341,6 @@
             micLabel.textContent = 'Hold to Speak';
             status.textContent = 'Ready';
             status.className = 'status ready';
-        }
-
-        // Load voices
-        if (synthesis) {
-            synthesis.getVoices();
-            synthesis.onvoiceschanged = () => synthesis.getVoices();
         }
     </script>
 </body>
