@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claude Voice</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-tertiary: #334155;
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --accent: #10b981;
+            --accent-glow: rgba(16, 185, 129, 0.3);
+            --error: #ef4444;
+            --user-bubble: #1e3a5f;
+            --assistant-bubble: #1e293b;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            width: 100%;
+            max-width: 600px;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+        }
+        header { text-align: center; padding: 20px 0; }
+        header h1 { font-size: 1.8rem; font-weight: 600; }
+        header .subtitle { font-size: 0.9rem; color: var(--text-secondary); margin-top: 4px; }
+        .status-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--bg-tertiary);
+            margin-bottom: 10px;
+        }
+        .status {
+            font-size: 0.75rem;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-weight: 500;
+        }
+        .status.ready { background: rgba(16, 185, 129, 0.15); color: var(--accent); }
+        .status.listening { background: rgba(59, 130, 246, 0.15); color: #3b82f6; }
+        .status.processing { background: rgba(251, 191, 36, 0.15); color: #fbbf24; }
+        .clear-btn {
+            background: transparent;
+            border: 1px solid var(--bg-tertiary);
+            color: var(--text-secondary);
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            cursor: pointer;
+        }
+        .clear-btn:hover { background: var(--bg-secondary); color: var(--text-primary); }
+        .conversation {
+            flex: 1;
+            overflow-y: auto;
+            padding: 10px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .welcome-message {
+            text-align: center;
+            color: var(--text-muted);
+            padding: 40px 20px;
+        }
+        .message {
+            max-width: 85%;
+            padding: 12px 16px;
+            border-radius: 16px;
+            line-height: 1.5;
+            animation: fadeIn 0.3s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .message.user {
+            background: var(--user-bubble);
+            align-self: flex-end;
+            border-bottom-right-radius: 4px;
+        }
+        .message.assistant {
+            background: var(--assistant-bubble);
+            align-self: flex-start;
+            border-bottom-left-radius: 4px;
+            border: 1px solid var(--bg-tertiary);
+        }
+        .message.error {
+            background: rgba(239, 68, 68, 0.15);
+            color: var(--error);
+            align-self: center;
+            font-size: 0.85rem;
+        }
+        .controls { padding: 20px 0; display: flex; justify-content: center; }
+        .mic-btn {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: var(--bg-secondary);
+            border: 3px solid var(--bg-tertiary);
+            color: var(--text-secondary);
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: all 0.2s;
+        }
+        .mic-btn:hover { border-color: var(--accent); color: var(--accent); }
+        .mic-btn.recording {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: white;
+            box-shadow: 0 0 30px var(--accent-glow);
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 20px var(--accent-glow); }
+            50% { box-shadow: 0 0 40px var(--accent-glow); }
+        }
+        .mic-btn.processing { background: var(--bg-tertiary); animation: none; }
+        .mic-icon { width: 32px; height: 32px; }
+        .mic-label { font-size: 0.65rem; font-weight: 500; text-transform: uppercase; }
+        .instructions { text-align: center; padding: 10px 0 20px; }
+        .instructions p { font-size: 0.8rem; color: var(--text-muted); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Claude Voice</h1>
+            <p class="subtitle">Speak with Claude</p>
+        </header>
+        <div class="status-bar">
+            <span id="status" class="status ready">Ready</span>
+            <button id="clear-btn" class="clear-btn">Clear</button>
+        </div>
+        <div class="conversation" id="conversation">
+            <div class="welcome-message">
+                <p>Click the microphone and start speaking.</p>
+            </div>
+        </div>
+        <div class="controls">
+            <button id="mic-btn" class="mic-btn">
+                <svg class="mic-icon" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/>
+                    <path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/>
+                </svg>
+                <span class="mic-label" id="mic-label">Hold to Speak</span>
+            </button>
+        </div>
+        <div class="instructions">
+            <p>Hold the button and speak. Release to send.</p>
+        </div>
+    </div>
+    <script>
+        const micBtn = document.getElementById('mic-btn');
+        const micLabel = document.getElementById('mic-label');
+        const conversation = document.getElementById('conversation');
+        const status = document.getElementById('status');
+        const clearBtn = document.getElementById('clear-btn');
+
+        let isRecording = false;
+        let recognition = null;
+        let history = [];
+        const synthesis = window.speechSynthesis;
+
+        // Check for speech recognition support
+        if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            recognition = new SpeechRecognition();
+            recognition.continuous = false;
+            recognition.interimResults = false;
+            recognition.lang = 'en-US';
+
+            recognition.onresult = async (event) => {
+                const transcript = event.results[0][0].transcript;
+                if (transcript.trim()) {
+                    addMessage('user', transcript);
+                    await sendToAPI(transcript);
+                }
+            };
+
+            recognition.onerror = (event) => {
+                console.error('Speech error:', event.error);
+                if (event.error === 'no-speech') {
+                    showError('No speech detected');
+                } else if (event.error === 'not-allowed') {
+                    showError('Microphone access denied');
+                }
+                resetUI();
+            };
+
+            recognition.onend = () => {
+                if (!isRecording) resetUI();
+            };
+        }
+
+        micBtn.addEventListener('mousedown', startRecording);
+        micBtn.addEventListener('mouseup', stopRecording);
+        micBtn.addEventListener('mouseleave', () => { if (isRecording) stopRecording(); });
+        micBtn.addEventListener('touchstart', (e) => { e.preventDefault(); startRecording(); });
+        micBtn.addEventListener('touchend', (e) => { e.preventDefault(); stopRecording(); });
+
+        clearBtn.addEventListener('click', () => {
+            history = [];
+            conversation.innerHTML = '<div class="welcome-message"><p>Conversation cleared.</p></div>';
+        });
+
+        function startRecording() {
+            if (!recognition || isRecording) return;
+            synthesis.cancel();
+            isRecording = true;
+            micBtn.classList.add('recording');
+            micLabel.textContent = 'Listening...';
+            status.textContent = 'Listening';
+            status.className = 'status listening';
+            try { recognition.start(); } catch(e) { stopRecording(); }
+        }
+
+        function stopRecording() {
+            if (!isRecording) return;
+            isRecording = false;
+            micBtn.classList.remove('recording');
+            micLabel.textContent = 'Processing...';
+            try { recognition.stop(); } catch(e) {}
+        }
+
+        async function sendToAPI(text) {
+            status.textContent = 'Thinking...';
+            status.className = 'status processing';
+            micBtn.classList.add('processing');
+
+            try {
+                const response = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ text, history })
+                });
+
+                const data = await response.json();
+
+                if (data.error) {
+                    showError(data.error);
+                } else {
+                    history = data.history;
+                    addMessage('assistant', data.text);
+                    speak(data.text);
+                }
+            } catch (e) {
+                showError('Failed to connect to API');
+            }
+
+            resetUI();
+        }
+
+        function addMessage(role, text) {
+            const welcome = conversation.querySelector('.welcome-message');
+            if (welcome) welcome.remove();
+
+            const div = document.createElement('div');
+            div.className = `message ${role}`;
+            div.textContent = text;
+            conversation.appendChild(div);
+            conversation.scrollTop = conversation.scrollHeight;
+        }
+
+        function showError(msg) {
+            const div = document.createElement('div');
+            div.className = 'message error';
+            div.textContent = msg;
+            conversation.appendChild(div);
+            setTimeout(() => div.remove(), 5000);
+        }
+
+        function speak(text) {
+            synthesis.cancel();
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.rate = 1.0;
+            const voices = synthesis.getVoices();
+            const preferredVoice = voices.find(v => v.name.includes('Samantha') || v.lang.startsWith('en'));
+            if (preferredVoice) utterance.voice = preferredVoice;
+            synthesis.speak(utterance);
+        }
+
+        function resetUI() {
+            micBtn.classList.remove('recording', 'processing');
+            micLabel.textContent = 'Hold to Speak';
+            status.textContent = 'Ready';
+            status.className = 'status ready';
+        }
+
+        // Load voices
+        if (synthesis) {
+            synthesis.getVoices();
+            synthesis.onvoiceschanged = () => synthesis.getVoices();
+        }
+    </script>
+</body>
+</html>
