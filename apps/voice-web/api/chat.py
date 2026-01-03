@@ -5,8 +5,9 @@ HTTP POST endpoint for voice chat (WebSocket alternative for serverless)
 
 import os
 import json
+import urllib.request
+import urllib.error
 from http.server import BaseHTTPRequestHandler
-from anthropic import Anthropic
 
 # System prompt for voice mode
 SYSTEM_PROMPT = (
@@ -15,12 +16,14 @@ SYSTEM_PROMPT = (
     "Be warm and natural."
 )
 
+ANTHROPIC_API_URL = "https://api.anthropic.com/v1/messages"
+
 
 class handler(BaseHTTPRequestHandler):
     def do_POST(self):
         try:
-            # Get API key
-            api_key = os.getenv("ANTHROPIC_API_KEY")
+            # Get API key (strip whitespace/newlines)
+            api_key = os.getenv("ANTHROPIC_API_KEY", "").strip()
             if not api_key:
                 self.send_error_response(500, "ANTHROPIC_API_KEY not configured")
                 return
@@ -40,16 +43,28 @@ class handler(BaseHTTPRequestHandler):
             # Add user message to history
             messages = history + [{"role": "user", "content": user_text}]
 
-            # Call Claude API
-            client = Anthropic(api_key=api_key)
-            response = client.messages.create(
-                model="claude-sonnet-4-20250514",
-                max_tokens=1024,
-                system=SYSTEM_PROMPT,
-                messages=messages
+            # Call Claude API directly with urllib (no external deps)
+            request_data = json.dumps({
+                "model": "claude-sonnet-4-20250514",
+                "max_tokens": 1024,
+                "system": SYSTEM_PROMPT,
+                "messages": messages
+            }).encode('utf-8')
+
+            req = urllib.request.Request(
+                ANTHROPIC_API_URL,
+                data=request_data,
+                headers={
+                    "Content-Type": "application/json",
+                    "x-api-key": api_key,
+                    "anthropic-version": "2023-06-01"
+                }
             )
 
-            assistant_text = response.content[0].text
+            with urllib.request.urlopen(req, timeout=60) as response:
+                result = json.loads(response.read().decode('utf-8'))
+
+            assistant_text = result["content"][0]["text"]
 
             # Send response
             self.send_response(200)
@@ -66,7 +81,11 @@ class handler(BaseHTTPRequestHandler):
             self.wfile.write(json.dumps(response_data).encode())
 
         except Exception as e:
-            self.send_error_response(500, str(e))
+            import traceback
+            error_detail = f"{type(e).__name__}: {str(e)}"
+            print(f"Error: {error_detail}")
+            print(traceback.format_exc())
+            self.send_error_response(500, error_detail)
 
     def do_OPTIONS(self):
         self.send_response(200)
