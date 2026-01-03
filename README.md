@@ -123,6 +123,7 @@ The plugin includes 12 knowledge skills with progressive disclosure:
 | `bccs-communications` | Justice-centered stakeholder communications |
 | `grant-strategy` | Grant writing and compliance |
 | `data-visualization` | Equity-focused data visualization |
+| `client-engineering` | Turn business intakes into technical specs |
 
 ### Analysis Scripts
 
@@ -181,6 +182,24 @@ APEX is designed for multi-portfolio leadership:
 | Business Development | 10-15% | Consulting, revenue |
 | Non-Profit Planning | 5-10% | Community partnerships |
 
+## Business Intake System
+
+Client intake for local business automation services (Plymouth/Medina, MN area).
+
+| Component | Location | Description |
+|-----------|----------|-------------|
+| Intake Form | `apps/business-intake/` | React 7-step intake form |
+| Backend | `backend/intake-handler.gs` | Google Apps Script handler |
+| Tech Skill | `skills/client-engineering/` | Process intakes into specs |
+
+**Target Clients:** Blue collar service businesses - auto shops, HVAC, plumbers, salons, contractors
+
+**Model:** $500-$5,000 setup + $150-400/month
+
+See `apps/business-intake/README.md` for setup instructions.
+
+---
+
 ## File Structure
 
 ```
@@ -188,6 +207,12 @@ apex-workflow/
 ├── .claude-plugin/
 │   ├── plugin.json              # Plugin metadata
 │   └── marketplace.json         # Marketplace registry
+├── apps/
+│   └── business-intake/         # Client intake form
+│       ├── intake-form.jsx      # React form component
+│       └── README.md            # Setup instructions
+├── backend/
+│   └── intake-handler.gs        # Google Apps Script backend
 ├── agents/
 │   ├── apex-orchestrator.md     # Master orchestrator with Working Genius
 │   ├── team-01-grant-strategy/
@@ -226,6 +251,11 @@ apex-workflow/
 │   ├── bccs-communications/
 │   ├── grant-strategy/
 │   ├── data-visualization/
+│   ├── client-engineering/        # Business intake processing
+│   │   ├── SKILL.md
+│   │   └── templates/
+│   │       ├── CLAUDE.md.template
+│   │       └── TECHNICAL.md.template
 │   └── ...
 ├── growth/                       # Dormant features for future
 │   ├── frontend/

@@ -1,0 +1,122 @@
+# PROJECT: [Business Name]
+
+## Client Profile
+
+| Field | Value |
+|-------|-------|
+| **Name** | [Contact name] |
+| **Business** | [Business name] |
+| **Type** | [Business type from intake] |
+| **Team Size** | [From intake] |
+| **Style** | [Brand style from intake] |
+| **Communication** | [Update preference from intake] |
+| **Best Hours** | [Available hours from intake] |
+| **Concerns** | [From intake - what they're worried about] |
+
+---
+
+## The Problem (Their Words)
+
+> [Paste directly from intake - Time Wasters field]
+
+> [Paste directly from intake - Biggest Fix field]
+
+---
+
+## What Success Looks Like
+
+> [Paste from intake - Success Criteria field]
+
+---
+
+## Must-Haves
+
+These are non-negotiable. Project isn't done without them.
+
+- [ ] [From intake Must Haves]
+- [ ] [Add more as identified]
+
+---
+
+## Nice-to-Haves
+
+Do these if time/budget allows. Not required for launch.
+
+- [ ] [From intake Nice to Haves]
+- [ ] [Add more as identified]
+
+---
+
+## Dream Scenario
+
+> [Paste from intake - Dream Scenario field]
+
+---
+
+## Customer Experience Goals
+
+> [Paste from intake - Customer Experience field]
+
+Examples they like: [From intake - Examples Liked field]
+
+---
+
+## Communication Rules
+
+### We Never:
+- Ask technical questions
+- Show code or architecture
+- Use jargon (API, webhook, database, framework)
+- Ask them to debug or test technical things
+- Make them choose between technical options
+
+### We Always:
+- Show working demos
+- Use their words
+- Give clear timelines
+- Respond within [24/48] hours based on their preference
+- Match their communication style: **[their update preference]**
+
+---
+
+## When to Involve Client
+
+**Yes - Ask them about:**
+- Experience-affecting choices: "Would you rather X or Y?"
+- Timeline trade-offs: "This adds 3 days - worth it?"
+- Content and copy: "Does this sound like you?"
+- Look and feel: "Does this match your brand?"
+
+**No - Never ask them about:**
+- Which technology to use
+- How to implement something
+- Technical architecture decisions
+- Framework or library choices
+- Database design
+- API structure
+
+---
+
+## Timeline
+
+| Milestone | Target Date | Status |
+|-----------|-------------|--------|
+| Discovery call | | |
+| Proposal sent | | |
+| Kickoff | | |
+| First demo | | |
+| Launch | | |
+
+---
+
+## Investment
+
+**Tier:** [1/2/3]
+**Setup:** $[amount]
+**Monthly:** $[amount]
+
+---
+
+## Notes
+
+[Add any context from calls, emails, or observations]

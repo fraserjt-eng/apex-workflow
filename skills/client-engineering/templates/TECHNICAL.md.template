@@ -1,0 +1,249 @@
+# TECHNICAL: [Business Name]
+
+> This document is internal only. Client never sees this.
+
+---
+
+## Project Overview
+
+**Client:** [Business name]
+**Tier:** [1/2/3]
+**Timeline:** [X weeks]
+**Start Date:** [Date]
+**Target Launch:** [Date]
+
+---
+
+## Architecture
+
+```
+[Diagram or description of system architecture]
+
+Example:
+┌─────────────┐     ┌──────────────┐     ┌─────────────┐
+│  Customer   │────▶│   Booking    │────▶│   Client    │
+│   (Web)     │     │   System     │     │   Dashboard │
+└─────────────┘     └──────────────┘     └─────────────┘
+                           │
+                           ▼
+                    ┌──────────────┐
+                    │  Twilio SMS  │
+                    └──────────────┘
+```
+
+---
+
+## Stack
+
+| Component | Choice | Rationale |
+|-----------|--------|-----------|
+| Frontend | | |
+| Backend | | |
+| Database | | |
+| Hosting | | |
+| SMS/Email | | |
+| Payments | | |
+| Auth | | |
+
+### Stack Decision Notes
+
+[Explain key decisions. Why this stack for this client?]
+
+---
+
+## Components
+
+### 1. [Component Name]
+
+**Purpose:** [What it does]
+
+**User:** [Who uses it - customer, staff, client]
+
+**Implementation:**
+- [Key technical details]
+- [Dependencies]
+- [Integration points]
+
+**Acceptance Criteria:**
+- [ ] [What "done" looks like]
+
+---
+
+### 2. [Component Name]
+
+**Purpose:** [What it does]
+
+**User:** [Who uses it]
+
+**Implementation:**
+- [Key technical details]
+
+**Acceptance Criteria:**
+- [ ] [What "done" looks like]
+
+---
+
+### 3. [Component Name]
+
+[Repeat as needed]
+
+---
+
+## Data Flow
+
+```
+[Describe how data moves through the system]
+
+Example:
+1. Customer submits booking form
+2. Data stored in [database]
+3. Confirmation SMS sent via Twilio
+4. Entry appears on client dashboard
+5. Reminder SMS sent 24h before appointment
+```
+
+---
+
+## Integrations
+
+| Service | Purpose | Auth Method | Rate Limits |
+|---------|---------|-------------|-------------|
+| | | | |
+
+### Integration Notes
+
+[Any gotchas, setup requirements, or special considerations]
+
+---
+
+## Data Model
+
+```
+[Key entities and relationships]
+
+Example:
+Customer
+├── id
+├── name
+├── phone
+├── email
+└── created_at
+
+Booking
+├── id
+├── customer_id
+├── service_type
+├── scheduled_at
+├── status
+└── created_at
+```
+
+---
+
+## Environment Variables
+
+| Variable | Description | Where to Get |
+|----------|-------------|--------------|
+| | | |
+
+---
+
+## Testing Plan
+
+### Unit Tests
+- [ ] [Component/function to test]
+- [ ] [Component/function to test]
+
+### Integration Tests
+- [ ] [Integration to test]
+- [ ] [Integration to test]
+
+### User Flow Tests
+- [ ] Customer can [complete action]
+- [ ] Staff can [complete action]
+- [ ] Client can [complete action]
+
+### Edge Cases
+- [ ] [What happens if X]
+- [ ] [What happens if Y]
+
+---
+
+## Deployment
+
+### Staging
+- URL: [staging URL]
+- Deploy method: [how]
+
+### Production
+- URL: [production URL]
+- Deploy method: [how]
+- DNS: [where managed]
+
+### Deployment Checklist
+- [ ] Environment variables set
+- [ ] Database migrated
+- [ ] DNS configured
+- [ ] SSL certificate active
+- [ ] Monitoring configured
+- [ ] Backup strategy in place
+
+---
+
+## Monitoring & Alerts
+
+| What | Tool | Alert Threshold |
+|------|------|-----------------|
+| Uptime | | |
+| Errors | | |
+| Performance | | |
+
+---
+
+## Security Considerations
+
+- [ ] Input validation
+- [ ] SQL injection prevention
+- [ ] XSS prevention
+- [ ] Authentication properly implemented
+- [ ] Sensitive data encrypted
+- [ ] API rate limiting
+
+---
+
+## Rollback Plan
+
+If something goes wrong after launch:
+
+1. [Step 1]
+2. [Step 2]
+3. [Step 3]
+
+---
+
+## Post-Launch Tasks
+
+- [ ] Verify all integrations working
+- [ ] Test with real data
+- [ ] Client walkthrough complete
+- [ ] Documentation updated
+- [ ] Monitoring verified
+- [ ] Handoff to support
+
+---
+
+## Technical Debt / Future Improvements
+
+| Item | Priority | Notes |
+|------|----------|-------|
+| | | |
+
+---
+
+## Time Log
+
+| Date | Hours | What |
+|------|-------|------|
+| | | |
+
+**Total Hours:** [X]
