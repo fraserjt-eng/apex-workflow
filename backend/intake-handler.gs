@@ -13,7 +13,7 @@
 // ==================== CONFIGURATION ====================
 
 const SHEET_NAME = 'Intake Submissions';
-const NOTIFICATION_EMAIL = 'YOUR_EMAIL_HERE'; // ← CHANGE THIS
+const NOTIFICATION_EMAIL = 'fraserjt@gmail.com';
 
 // ==================== MAIN HANDLERS ====================
 
