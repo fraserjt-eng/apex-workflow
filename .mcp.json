@@ -1,0 +1,28 @@
+{
+  "mcpServers": {
+    "google-drive": {
+      "command": "npx",
+      "args": ["-y", "@anthropic/mcp-server-google-drive"],
+      "env": {
+        "GOOGLE_APPLICATION_CREDENTIALS": "${GOOGLE_APPLICATION_CREDENTIALS}"
+      },
+      "description": "Access Google Drive files for APEX workflows"
+    },
+    "google-sheets": {
+      "command": "npx",
+      "args": ["-y", "@anthropic/mcp-server-google-sheets"],
+      "env": {
+        "GOOGLE_APPLICATION_CREDENTIALS": "${GOOGLE_APPLICATION_CREDENTIALS}"
+      },
+      "description": "Read/write Google Sheets for data analysis"
+    },
+    "filesystem": {
+      "command": "npx",
+      "args": ["-y", "@anthropic/mcp-server-filesystem"],
+      "env": {
+        "ALLOWED_PATHS": "${HOME}/Documents/BCCS,${HOME}/Documents/APEX,${HOME}/Documents/Grants"
+      },
+      "description": "Access local files in allowed directories"
+    }
+  }
+}

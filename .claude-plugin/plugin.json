@@ -1,0 +1,36 @@
+{
+  "name": "apex-workflow",
+  "version": "1.0.0",
+  "description": "APEX: Autonomous Portfolio Execution & Strategic eXpert - Justice-centered educational transformation agent orchestration with 21 specialized agents across 6 functional teams.",
+  "author": {
+    "name": "J Fraser",
+    "organization": "Brooklyn Center Community Schools",
+    "role": "Director of Educational Equity"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jfraser/apex-workflow.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jfraser/apex-workflow/issues"
+  },
+  "homepage": "https://github.com/jfraser/apex-workflow#readme",
+  "engines": {
+    "claude-code": ">=1.0.33"
+  },
+  "keywords": [
+    "educational-equity",
+    "justice-centered",
+    "agent-orchestration",
+    "BCCS",
+    "MTSS",
+    "professional-development",
+    "grant-writing",
+    "equity-audit",
+    "four-pivots",
+    "street-data",
+    "culturally-responsive",
+    "workflow-automation"
+  ]
+}
