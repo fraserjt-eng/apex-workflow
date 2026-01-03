@@ -69,6 +69,12 @@ By the end of this session, participants will:
 
 **Prompt:** "Before we examine [the system/others], let's pause and ask ourselves: [mirror work question]"
 
+**Enhanced with Interior Architecture:**
+Include at least one of these:
+- "What is my evidence for what I believe about [topic]?"
+- "Which groove might I be in: Am I seeing what I expect? Blaming the wrong cause? Assuming I know how this will unfold?"
+- "Have I encountered this pattern before? What did I miss last time?"
+
 **Format:**
 - [ ] Silent writing (X minutes)
 - [ ] Pair share (optional)
@@ -136,10 +142,18 @@ This is non-negotiable. Without mirror work, training becomes performative criti
 
 **Sentence stem:** "One thing I commit to trying is..."
 
+### The Spiral Acknowledgment
+Close with language that rejects arrival:
+
+> "You are not finished. What you discovered today will return at a deeper level. The patterns we examined will wear new masks. The work continues."
+
+Or: "We don't close these circles. We pause them."
+
 ### Next Steps
 - [ ] [Action item with timeline]
 - [ ] [Resource to review]
 - [ ] [Connection to next session/follow-up]
+- [ ] When will we revisit this? (The spiral demands return)
 
 ---
 
@@ -164,6 +178,8 @@ This is non-negotiable. Without mirror work, training becomes performative criti
 ## QUALITY CHECK
 
 Before facilitating, confirm:
+
+**Core Protocol:**
 - [ ] Begins with experience (not lecture/framework)
 - [ ] Includes mirror work (self-examination opportunity)
 - [ ] High Warmth + High Structure present
@@ -171,3 +187,23 @@ Before facilitating, confirm:
 - [ ] Asset-based framing of participants
 - [ ] Justice-centered language throughout
 - [ ] Timing realistic and includes buffer
+
+**Interior Architecture Integration:**
+- [ ] "What is my evidence?" prompt included
+- [ ] Groove interruption opportunity identified
+- [ ] Action-before-ready moment designed
+- [ ] No arrival language (spiral acknowledgment at close)
+- [ ] Facilitator has done own mirror work on this content
+
+---
+
+## FACILITATOR INTERIOR ARCHITECTURE SELF-CHECK
+
+Before facilitating, ask yourself:
+
+1. **Logic Trap:** What patterns am I expecting to see in this group? What would I miss if I'm wrong?
+2. **Projecting Proof:** What is my evidence for my assumptions? How was that evidence selected?
+3. **Agency Shift:** What am I avoiding in this design? What action would scare me?
+4. **The Spiral:** When did I last sit in a circle as participant, not expert?
+
+> "I am not finished. I do not know the whole truth. What I share now is partial."
