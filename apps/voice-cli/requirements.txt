@@ -1,0 +1,18 @@
+# Claude API
+anthropic>=0.40.0
+
+# Audio recording and playback
+sounddevice>=0.4.6
+soundfile>=0.12.1
+numpy>=1.24.0
+
+# Speech-to-text options
+openai>=1.0.0  # For Whisper API
+SpeechRecognition>=3.10.0  # Free Google fallback
+
+# Text-to-speech options
+pyttsx3>=2.90  # Offline TTS
+elevenlabs>=0.2.0  # Optional: better quality voices
+
+# Environment management
+python-dotenv>=1.0.0

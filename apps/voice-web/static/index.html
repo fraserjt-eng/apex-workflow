@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claude Voice</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Claude Voice</h1>
+            <p class="subtitle">Speak with Claude</p>
+        </header>
+
+        <div class="status-bar">
+            <span id="connection-status" class="status disconnected">Connecting...</span>
+            <button id="clear-btn" class="clear-btn" title="Clear conversation">Clear</button>
+        </div>
+
+        <div class="conversation" id="conversation">
+            <div class="welcome-message">
+                <p>Click the microphone and start speaking.</p>
+                <p class="hint">Your browser will handle speech recognition and synthesis - no external APIs needed.</p>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button id="mic-btn" class="mic-btn" disabled>
+                <svg class="mic-icon" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/>
+                    <path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/>
+                </svg>
+                <span class="mic-label" id="mic-label">Hold to Speak</span>
+            </button>
+        </div>
+
+        <div class="instructions">
+            <p>Hold the button and speak. Release to send.</p>
+        </div>
+    </div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>
